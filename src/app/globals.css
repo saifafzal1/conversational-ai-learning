@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 15, 23, 42;
+  --background-rgb: 248, 250, 252;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+}
+
+.prose h2 { @apply text-2xl font-bold text-slate-800 mt-8 mb-3; }
+.prose h3 { @apply text-xl font-semibold text-slate-700 mt-6 mb-2; }
+.prose p  { @apply text-slate-600 leading-relaxed mb-4; }
+.prose ul { @apply list-disc pl-6 mb-4 text-slate-600 space-y-1; }
+.prose strong { @apply text-slate-800 font-semibold; }
+.prose blockquote { @apply border-l-4 border-blue-400 pl-4 italic text-slate-500 my-4; }
+
+.ad-slot {
+  @apply w-full bg-slate-100 border border-dashed border-slate-300 rounded-lg flex items-center justify-center text-slate-400 text-sm;
+  min-height: 90px;
+}
