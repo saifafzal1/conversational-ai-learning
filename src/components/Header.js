@@ -20,15 +20,21 @@ export default function Header() {
           </div>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+        <nav className="hidden md:flex items-center gap-5 text-sm font-medium text-slate-600">
           <Link href="/course" className="hover:text-blue-600 transition-colors">
-            Course
+            Conversational AI
           </Link>
-          <Link href="/daily-task" className="hover:text-blue-600 transition-colors">
-            Daily Task
+          <Link href="/prompt-engineering" className="hover:text-purple-600 transition-colors">
+            Prompt Engineering
           </Link>
-          <Link href="/about" className="hover:text-blue-600 transition-colors">
-            About
+          <Link href="/create-agents" className="hover:text-orange-500 transition-colors font-semibold flex items-center gap-1">
+            🤖 Create Agents
+          </Link>
+          <Link href="/agent-networks" className="hover:text-teal-500 transition-colors font-semibold flex items-center gap-1">
+            🔗 Agent Networks
+          </Link>
+          <Link href="/community" className="hover:text-green-600 transition-colors flex items-center gap-1">
+            💬 Community
           </Link>
           <Link
             href="/course"
@@ -49,13 +55,19 @@ export default function Header() {
       {menuOpen && (
         <div className="md:hidden bg-white border-t border-slate-100 px-4 py-4 space-y-3 text-sm font-medium text-slate-600">
           <Link href="/course" className="block hover:text-blue-600" onClick={() => setMenuOpen(false)}>
-            Course
+            Conversational AI
           </Link>
-          <Link href="/daily-task" className="block hover:text-blue-600" onClick={() => setMenuOpen(false)}>
-            Daily Task
+          <Link href="/prompt-engineering" className="block hover:text-purple-600" onClick={() => setMenuOpen(false)}>
+            Prompt Engineering
           </Link>
-          <Link href="/about" className="block hover:text-blue-600" onClick={() => setMenuOpen(false)}>
-            About
+          <Link href="/create-agents" className="block hover:text-orange-500 font-semibold" onClick={() => setMenuOpen(false)}>
+            🤖 Create Agents
+          </Link>
+          <Link href="/agent-networks" className="block hover:text-teal-500 font-semibold" onClick={() => setMenuOpen(false)}>
+            🔗 Agent Networks
+          </Link>
+          <Link href="/community" className="block hover:text-green-600" onClick={() => setMenuOpen(false)}>
+            💬 Community
           </Link>
           <Link
             href="/course"

@@ -1,20 +1,20 @@
-import { chapters, getChapter } from "@/data/curriculum";
+import { agentNetworksChapters, getAgentNetworksChapter } from "@/data/agentNetworksCourse";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Quiz from "./Quiz";
+import AgentNetworksQuiz from "./AgentNetworksQuiz";
 import { AdBannerTop, AffiliateBox } from "@/components/AdBanner";
 import DisqusComments from "@/components/DisqusComments";
 
 export async function generateStaticParams() {
-  return chapters.map((ch) => ({ chapter: ch.slug }));
+  return agentNetworksChapters.map((ch) => ({ chapter: ch.slug }));
 }
 
 export async function generateMetadata({ params }) {
   const { chapter } = await params;
-  const ch = getChapter(chapter);
+  const ch = getAgentNetworksChapter(chapter);
   if (!ch) return {};
   return {
-    title: `${ch.title} — ConversationalAI.Learn`,
+    title: `${ch.title} — Agent Networks`,
     description: ch.tagline,
   };
 }
@@ -25,15 +25,14 @@ const levelColors = {
   Advanced: "bg-red-100 text-red-700",
 };
 
-export default async function ChapterPage({ params }) {
+export default async function AgentNetworksChapterPage({ params }) {
   const { chapter } = await params;
-  const ch = getChapter(chapter);
+  const ch = getAgentNetworksChapter(chapter);
   if (!ch) notFound();
 
-  const prevCh = chapters.find((c) => c.id === ch.id - 1);
-  const nextCh = chapters.find((c) => c.id === ch.id + 1);
+  const prevCh = agentNetworksChapters.find((c) => c.id === ch.id - 1);
+  const nextCh = agentNetworksChapters.find((c) => c.id === ch.id + 1);
 
-  // Convert markdown-style content to HTML-like paragraphs
   const renderContent = (text) => {
     const lines = text.trim().split("\n");
     const elements = [];
@@ -56,7 +55,7 @@ export default async function ChapterPage({ params }) {
         );
       } else if (line.startsWith("> ")) {
         elements.push(
-          <blockquote key={i} className="border-l-4 border-blue-400 pl-4 italic text-slate-500 my-4 bg-blue-50 py-2 rounded-r-lg">
+          <blockquote key={i} className="border-l-4 border-teal-400 pl-4 italic text-slate-500 my-4 bg-teal-50 py-2 rounded-r-lg">
             {line.replace("> ", "")}
           </blockquote>
         );
@@ -74,34 +73,22 @@ export default async function ChapterPage({ params }) {
           </ul>
         );
         continue;
-      } else if (line.startsWith("**") && line.includes("**")) {
-        elements.push(
-          <p key={i} className="text-slate-600 leading-relaxed mb-3"
-            dangerouslySetInnerHTML={{
-              __html: line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>"),
-            }}
-          />
-        );
-      } else if (line === "" || line === "---") {
-        // skip empty lines
       } else if (line.startsWith("| ")) {
-        // Simple table
         const rows = [];
         while (i < lines.length && lines[i].trim().startsWith("|")) {
           if (!lines[i].includes("---")) rows.push(lines[i]);
           i++;
         }
         const [header, ...bodyRows] = rows;
+        if (!header) { i++; continue; }
         const headerCells = header.split("|").filter(Boolean).map((c) => c.trim());
         elements.push(
           <div key={`table-${i}`} className="overflow-x-auto my-4">
             <table className="min-w-full border border-slate-200 rounded-lg text-sm">
-              <thead className="bg-slate-50">
+              <thead className="bg-teal-50">
                 <tr>
                   {headerCells.map((c, j) => (
-                    <th key={j} className="px-4 py-2 text-left font-semibold text-slate-700 border-b border-slate-200">
-                      {c}
-                    </th>
+                    <th key={j} className="px-4 py-2 text-left font-semibold text-slate-700 border-b border-slate-200">{c}</th>
                   ))}
                 </tr>
               </thead>
@@ -126,19 +113,11 @@ export default async function ChapterPage({ params }) {
           i++;
         }
         elements.push(
-          <pre key={`code-${i}`} className="bg-slate-900 text-green-300 rounded-xl p-4 overflow-x-auto my-4 text-sm leading-relaxed">
+          <pre key={`code-${i}`} className="bg-slate-900 text-teal-300 rounded-xl p-4 overflow-x-auto my-4 text-sm leading-relaxed">
             <code>{codeLines.join("\n")}</code>
           </pre>
         );
-      } else if (line.startsWith("✅") || line.startsWith("❌")) {
-        elements.push(
-          <p key={i} className="text-slate-600 leading-relaxed my-1"
-            dangerouslySetInnerHTML={{
-              __html: line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>"),
-            }}
-          />
-        );
-      } else if (line.length > 0) {
+      } else if (line.length > 0 && line !== "---") {
         elements.push(
           <p key={i} className="text-slate-600 leading-relaxed mb-3"
             dangerouslySetInnerHTML={{
@@ -155,29 +134,27 @@ export default async function ChapterPage({ params }) {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
       {/* Breadcrumb */}
-      <nav className="text-sm text-slate-400 mb-6 flex items-center gap-2">
-        <Link href="/" className="hover:text-blue-600">Home</Link>
+      <nav className="text-sm text-slate-400 mb-6 flex items-center gap-2 flex-wrap">
+        <Link href="/" className="hover:text-teal-500">Home</Link>
         <span>›</span>
-        <Link href="/course" className="hover:text-blue-600">Course</Link>
+        <Link href="/agent-networks" className="hover:text-teal-500">Agent Networks</Link>
         <span>›</span>
         <span className="text-slate-600">{ch.title}</span>
       </nav>
 
       {/* Chapter Header */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100 rounded-2xl p-6 mb-8">
+      <div className="bg-gradient-to-r from-teal-50 to-cyan-50 border border-teal-100 rounded-2xl p-6 mb-8">
         <div className="flex items-start gap-4">
           <span className="text-5xl">{ch.emoji}</span>
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-2">
-              <span className="text-sm font-bold text-blue-400">Chapter {ch.id} of {chapters.length}</span>
+              <span className="text-sm font-bold text-teal-500">Chapter {ch.id} of {agentNetworksChapters.length}</span>
               <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${levelColors[ch.level]}`}>
                 {ch.level}
               </span>
               <span className="text-xs text-slate-400">⏱ {ch.readTime}</span>
             </div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-slate-800 mb-1">
-              {ch.title}
-            </h1>
+            <h1 className="text-2xl md:text-3xl font-extrabold text-slate-800 mb-1">{ch.title}</h1>
             <p className="text-slate-500">{ch.tagline}</p>
           </div>
         </div>
@@ -188,7 +165,7 @@ export default async function ChapterPage({ params }) {
       {/* Key Terms */}
       <div className="flex flex-wrap gap-2 mb-8">
         {ch.keyTerms.map((term) => (
-          <span key={term} className="bg-slate-100 text-slate-600 text-xs font-medium px-3 py-1 rounded-full">
+          <span key={term} className="bg-teal-50 text-teal-700 text-xs font-medium px-3 py-1 rounded-full border border-teal-100">
             {term}
           </span>
         ))}
@@ -202,11 +179,11 @@ export default async function ChapterPage({ params }) {
       <AffiliateBox />
 
       {/* Daily Task */}
-      <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-6 mb-10">
+      <div className="bg-teal-50 border-2 border-teal-200 rounded-2xl p-6 mb-10">
         <div className="flex items-center gap-2 mb-3">
           <span className="text-2xl">📋</span>
           <div>
-            <p className="text-xs font-bold text-amber-600 uppercase tracking-wider">Today&apos;s Task</p>
+            <p className="text-xs font-bold text-teal-600 uppercase tracking-wider">Today&apos;s Task</p>
             <h3 className="font-bold text-slate-800 text-lg">{ch.dailyTask.title}</h3>
           </div>
         </div>
@@ -214,50 +191,51 @@ export default async function ChapterPage({ params }) {
       </div>
 
       {/* Quiz */}
-      <Quiz questions={ch.quiz} chapterId={ch.id} chapterTitle={ch.title} />
+      <AgentNetworksQuiz questions={ch.quiz} chapterId={ch.id} chapterTitle={ch.title} />
 
       {/* Navigation */}
       <div className="flex flex-col sm:flex-row gap-4 mt-10 pt-8 border-t border-slate-200">
         {prevCh ? (
           <Link
-            href={`/course/${prevCh.slug}`}
-            className="flex-1 bg-white border border-slate-200 rounded-xl p-4 hover:border-blue-400 transition-colors group"
+            href={`/agent-networks/${prevCh.slug}`}
+            className="flex-1 bg-white border border-slate-200 rounded-xl p-4 hover:border-teal-400 transition-colors group"
           >
             <p className="text-xs text-slate-400 mb-1">← Previous</p>
-            <p className="font-semibold text-slate-700 group-hover:text-blue-600">
+            <p className="font-semibold text-slate-700 group-hover:text-teal-500">
               {prevCh.emoji} {prevCh.title}
             </p>
           </Link>
         ) : (
-          <div className="flex-1" />
+          <Link href="/agent-networks" className="flex-1 bg-white border border-slate-200 rounded-xl p-4 hover:border-teal-400 transition-colors">
+            <p className="text-xs text-slate-400 mb-1">← Back to</p>
+            <p className="font-semibold text-slate-700">Course Overview</p>
+          </Link>
         )}
 
         {nextCh ? (
           <Link
-            href={`/course/${nextCh.slug}`}
-            className="flex-1 bg-blue-600 text-white rounded-xl p-4 hover:bg-blue-700 transition-colors text-right"
+            href={`/agent-networks/${nextCh.slug}`}
+            className="flex-1 bg-teal-500 text-white rounded-xl p-4 hover:bg-teal-600 transition-colors text-right"
           >
-            <p className="text-xs text-blue-200 mb-1">Next →</p>
-            <p className="font-semibold">
-              {nextCh.emoji} {nextCh.title}
-            </p>
+            <p className="text-xs text-teal-200 mb-1">Next →</p>
+            <p className="font-semibold">{nextCh.emoji} {nextCh.title}</p>
           </Link>
         ) : (
           <Link
-            href="/course"
+            href="/agent-networks"
             className="flex-1 bg-green-600 text-white rounded-xl p-4 hover:bg-green-700 transition-colors text-center"
           >
             <p className="text-sm text-green-200 mb-1">🎉 Course Complete!</p>
-            <p className="font-semibold">View All Chapters</p>
+            <p className="font-semibold">View Course Overview</p>
           </Link>
         )}
       </div>
 
       {/* Community Q&A */}
       <DisqusComments
-        pageUrl={`https://conversational-ai-learning.vercel.app/course/${ch.slug}`}
-        pageIdentifier={`course-${ch.slug}`}
-        pageTitle={`${ch.title} — Conversational AI`}
+        pageUrl={`https://conversational-ai-learning.vercel.app/agent-networks/${ch.slug}`}
+        pageIdentifier={`networks-${ch.slug}`}
+        pageTitle={`${ch.title} — Agent Networks`}
       />
     </div>
   );

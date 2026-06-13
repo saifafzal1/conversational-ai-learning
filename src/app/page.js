@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { chapters } from "@/data/curriculum";
+import { peChapters } from "@/data/promptEngineering";
+import { agentsChapters } from "@/data/agentsCourse";
+import { agentNetworksChapters } from "@/data/agentNetworksCourse";
 
 export default function HomePage() {
   const levelColors = {
@@ -17,12 +20,12 @@ export default function HomePage() {
             🆓 100% Free · No Sign-up Required
           </div>
           <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-            Master Conversational AI<br />
-            <span className="text-blue-200">From Beginner to Expert</span>
+            Learn to Talk to AI —<br />
+            <span className="text-blue-200">and Make It Work for You</span>
           </h1>
           <p className="text-lg md:text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            10 practical chapters designed for working professionals. Each chapter takes under 15 minutes.
-            Quizzes, daily recall tasks, and real-world examples throughout.
+            10 practical chapters designed for working professionals. No coding needed.
+            Each chapter takes under 15 minutes — with quizzes and daily tasks to make it stick.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -58,47 +61,151 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Course Grid */}
+      {/* Courses Section */}
       <section className="max-w-6xl mx-auto px-4 py-16">
         <h2 className="text-3xl font-bold text-slate-800 text-center mb-2">
-          Your Learning Path
+          Choose Your Course
         </h2>
         <p className="text-slate-500 text-center mb-10">
-          Structured progression from absolute beginner to industry-ready expert
+          Two free courses — start with Conversational AI, then master Prompt Engineering
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {chapters.map((ch) => (
-            <Link
-              key={ch.id}
-              href={`/course/${ch.slug}`}
-              className="bg-white border border-slate-200 rounded-xl p-5 hover:border-blue-400 hover:shadow-md transition-all group"
-            >
-              <div className="flex items-start gap-4">
-                <div className="text-3xl">{ch.emoji}</div>
-                <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-bold text-slate-400">
-                      CH {String(ch.id).padStart(2, "0")}
-                    </span>
-                    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${levelColors[ch.level]}`}>
-                      {ch.level}
-                    </span>
-                    <span className="text-xs text-slate-400">{ch.readTime}</span>
+        {/* Course 1 */}
+        <div className="mb-10">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">COURSE 1</span>
+            <h3 className="text-xl font-bold text-slate-800">Conversational AI — Beginner to Expert</h3>
+            <span className="text-sm text-slate-400">10 chapters</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {chapters.slice(0, 4).map((ch) => (
+              <Link
+                key={ch.id}
+                href={`/course/${ch.slug}`}
+                className="bg-white border border-slate-200 rounded-xl p-4 hover:border-blue-400 hover:shadow-md transition-all group"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="text-2xl">{ch.emoji}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-xs font-bold text-slate-400">CH {String(ch.id).padStart(2, "0")}</span>
+                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${levelColors[ch.level]}`}>{ch.level}</span>
+                    </div>
+                    <h4 className="font-bold text-slate-800 group-hover:text-blue-600 transition-colors text-sm">{ch.title}</h4>
                   </div>
-                  <h3 className="font-bold text-slate-800 group-hover:text-blue-600 transition-colors">
-                    {ch.title}
-                  </h3>
-                  <p className="text-sm text-slate-500 mt-1 line-clamp-2">
-                    {ch.tagline}
-                  </p>
+                  <span className="text-slate-300 group-hover:text-blue-400 text-lg">→</span>
                 </div>
-                <span className="text-slate-300 group-hover:text-blue-400 transition-colors text-xl">
-                  →
-                </span>
-              </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-3 text-center">
+            <Link href="/course" className="text-blue-600 text-sm font-semibold hover:underline">
+              View all 10 chapters →
             </Link>
-          ))}
+          </div>
+        </div>
+
+        {/* Course 2 */}
+        <div>
+          <div className="flex items-center gap-3 mb-4">
+            <span className="bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full">COURSE 2</span>
+            <h3 className="text-xl font-bold text-slate-800">Prompt Engineering Masterclass</h3>
+            <span className="text-sm text-slate-400">10 chapters</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {peChapters.slice(0, 4).map((ch) => (
+              <Link
+                key={ch.id}
+                href={`/prompt-engineering/${ch.slug}`}
+                className="bg-white border border-slate-200 rounded-xl p-4 hover:border-purple-400 hover:shadow-md transition-all group"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="text-2xl">{ch.emoji}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-xs font-bold text-slate-400">CH {String(ch.id).padStart(2, "0")}</span>
+                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${levelColors[ch.level]}`}>{ch.level}</span>
+                    </div>
+                    <h4 className="font-bold text-slate-800 group-hover:text-purple-600 transition-colors text-sm">{ch.title}</h4>
+                  </div>
+                  <span className="text-slate-300 group-hover:text-purple-400 text-lg">→</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-3 text-center">
+            <Link href="/prompt-engineering" className="text-purple-600 text-sm font-semibold hover:underline">
+              View all 10 chapters →
+            </Link>
+          </div>
+        </div>
+
+        {/* Course 3 */}
+        <div>
+          <div className="flex items-center gap-3 mb-4">
+            <span className="bg-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">COURSE 3</span>
+            <h3 className="text-xl font-bold text-slate-800">Create AI Agents — Claude, Copilot & ChatGPT</h3>
+            <span className="text-sm text-slate-400">3 chapters</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {agentsChapters.map((ch) => (
+              <Link
+                key={ch.id}
+                href={`/create-agents/${ch.slug}`}
+                className="bg-white border border-slate-200 rounded-xl p-4 hover:border-orange-400 hover:shadow-md transition-all group"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="text-2xl">{ch.emoji}</div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className="text-xs font-bold text-slate-400">CH {String(ch.id).padStart(2, "0")}</span>
+                      <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${levelColors[ch.level]}`}>{ch.level}</span>
+                    </div>
+                    <h4 className="font-bold text-slate-800 group-hover:text-orange-500 transition-colors text-sm">{ch.title}</h4>
+                  </div>
+                  <span className="text-slate-300 group-hover:text-orange-400 text-lg">→</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-3 text-center">
+            <Link href="/create-agents" className="text-orange-500 text-sm font-semibold hover:underline">
+              View all 3 chapters →
+            </Link>
+          </div>
+        </div>
+
+        {/* Course 4 */}
+        <div>
+          <div className="flex items-center gap-3 mb-4">
+            <span className="bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full">COURSE 4</span>
+            <h2 className="text-xl font-bold text-slate-800">🔗 Agent Networks</h2>
+            <span className="text-sm text-slate-400">3 chapters</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {agentNetworksChapters.map((ch) => (
+              <Link
+                key={ch.id}
+                href={`/agent-networks/${ch.slug}`}
+                className="bg-white border border-slate-200 rounded-xl p-4 hover:border-teal-400 hover:shadow-md transition-all group"
+              >
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">{ch.emoji}</span>
+                  <div>
+                    <p className="font-semibold text-slate-700 group-hover:text-teal-600 text-sm leading-tight">
+                      {ch.title}
+                    </p>
+                    <p className="text-xs text-slate-400 mt-1">{ch.readTime}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-3 text-center">
+            <Link href="/agent-networks" className="text-teal-500 text-sm font-semibold hover:underline">
+              View all 3 chapters →
+            </Link>
+          </div>
         </div>
       </section>
 

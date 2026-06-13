@@ -2,13 +2,14 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "ConversationalAI.Learn — From Beginner to Expert",
+  title: "Learn to Talk to AI — and Make It Work for You | ConversationalAI.Learn",
   description:
-    "Master Conversational AI from scratch. 10 chapters covering NLP, LLMs, prompt engineering, chatbot building, ethics and more. Free, practical, and beginner-friendly.",
+    "Learn to talk to AI and make it work for you. Free 10-chapter course covering NLP, LLMs, prompt engineering, chatbot building and more. No coding needed. Designed for working professionals.",
   keywords:
     "conversational AI, chatbot, LLM, prompt engineering, NLP, machine learning, AI course, learn AI",
   openGraph: {
@@ -21,6 +22,20 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-MKTXL9D4X4"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-MKTXL9D4X4');
+          `}
+        </Script>
+      </head>
       <body className={inter.className}>
         <Header />
         <main>{children}</main>
