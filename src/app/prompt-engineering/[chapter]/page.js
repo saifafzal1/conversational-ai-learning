@@ -175,7 +175,7 @@ export default async function PEChapterPage({ params }) {
         {renderContent(ch.content)}
       </article>
 
-      <AffiliateBox />
+      <AffiliateBox courseType="prompt" />
 
       {/* Daily Task */}
       <div className="bg-amber-50 border-2 border-amber-200 rounded-2xl p-6 mb-10">

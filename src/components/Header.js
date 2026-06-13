@@ -36,6 +36,9 @@ export default function Header() {
           <Link href="/community" className="hover:text-green-600 transition-colors flex items-center gap-1">
             💬 Community
           </Link>
+          <Link href="/blog" className="hover:text-blue-600 transition-colors flex items-center gap-1">
+            📝 Blog
+          </Link>
           <Link
             href="/course"
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
@@ -68,6 +71,9 @@ export default function Header() {
           </Link>
           <Link href="/community" className="block hover:text-green-600" onClick={() => setMenuOpen(false)}>
             💬 Community
+          </Link>
+          <Link href="/blog" className="block hover:text-blue-600" onClick={() => setMenuOpen(false)}>
+            📝 Blog
           </Link>
           <Link
             href="/course"

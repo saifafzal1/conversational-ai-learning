@@ -3,6 +3,7 @@ import { chapters } from "@/data/curriculum";
 import { peChapters } from "@/data/promptEngineering";
 import { agentsChapters } from "@/data/agentsCourse";
 import { agentNetworksChapters } from "@/data/agentNetworksCourse";
+import { getRecentPosts } from "@/data/blogPosts";
 
 export default function HomePage() {
   const levelColors = {
@@ -204,6 +205,41 @@ export default function HomePage() {
           <div className="mt-3 text-center">
             <Link href="/agent-networks" className="text-teal-500 text-sm font-semibold hover:underline">
               View all 3 chapters →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Blog Section */}
+      <section className="bg-white py-16 px-4 border-t border-slate-100">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <div className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">📝 From the Blog</div>
+              <h2 className="text-3xl font-bold text-slate-800">Latest Guides & Resources</h2>
+            </div>
+            <Link href="/blog" className="text-blue-600 font-semibold text-sm hover:underline hidden sm:block">
+              View all articles →
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {getRecentPosts(3).map((post) => (
+              <Link key={post.slug} href={`/blog/${post.slug}`} className="group bg-slate-50 border border-slate-200 rounded-2xl p-5 hover:border-blue-300 hover:shadow-sm transition-all flex flex-col">
+                <span className="text-3xl mb-3">{post.emoji}</span>
+                <span className="text-xs font-semibold text-blue-600 mb-1">{post.category}</span>
+                <h3 className="font-bold text-slate-800 text-sm leading-snug group-hover:text-blue-600 transition-colors mb-2 flex-1">
+                  {post.title}
+                </h3>
+                <div className="flex items-center justify-between mt-3">
+                  <span className="text-xs text-slate-400">{post.readTime}</span>
+                  <span className="text-blue-500 text-sm group-hover:underline font-medium">Read →</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center mt-6 sm:hidden">
+            <Link href="/blog" className="text-blue-600 font-semibold text-sm hover:underline">
+              View all articles →
             </Link>
           </div>
         </div>

@@ -176,7 +176,7 @@ export default async function AgentNetworksChapterPage({ params }) {
         {renderContent(ch.content)}
       </article>
 
-      <AffiliateBox />
+      <AffiliateBox courseType="networks" />
 
       {/* Daily Task */}
       <div className="bg-teal-50 border-2 border-teal-200 rounded-2xl p-6 mb-10">
